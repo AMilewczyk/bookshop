@@ -4,9 +4,10 @@ window.onload = function () {
 };
 
 class Book {
-    constructor(title, author) {
+    constructor(title, author, price) {
         this.title = title;
         this.author = author;
+        this.price = price;
         this.id = Date.now(); // timestamp
     }
 }
@@ -19,7 +20,7 @@ class BooksList {
     init() {
         document.getElementById("saveButton").addEventListener("click",
             (e) => this.saveButton(e));
-        
+
         this.loadDataFromStorage();
     }
 
@@ -39,14 +40,15 @@ class BooksList {
 
         const author = document.getElementById("bookAuthor").value;
         const title = document.getElementById("bookTitle").value;
+        const price = document.getElementById("bookPrice").value;
 
-        if(author === "" || title === "") {
-            console.log("blank data"); 
+        if(author === "" || title === "" || price === "") {
+            console.log("blank data");
             return;
         }
 
         e.preventDefault();
-        const book = new Book(title, author);
+        const book = new Book(title, author, price);
         this.addBook(book);
     }
 
@@ -138,9 +140,10 @@ class Ui {
         tr.innerHTML = `
             <td> ${book.title} </td>
             <td> ${book.author} </td>
+            <td> ${book.price} </td>
             <td> 
                 <button type="button" data-book-id="${book.id}" 
-                    class="btn btn-danger brn-sm delete">Skasuj</button>
+                    class="btn btn-danger brn-sm delete">Delete</button>
                 <button type="button" data-book-id="${book.id}" 
                     class="btn btn-secondary brn-sm up-arrow">▲</button>
                 <button type="button" data-book-id="${book.id}" 
@@ -181,6 +184,8 @@ class Ui {
     clearForm() {
         document.getElementById("bookTitle").value = "";
         document.getElementById("bookAuthor").value = "";
+        document.getElementById("bookPrice").value = "";
+
 
         document.getElementById("bookForm").classList.remove("was-validated");
     }
@@ -213,10 +218,10 @@ const storage = new Storage();
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
     'use strict'
-  
+
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.querySelectorAll('.needs-validation')
-  
+
     // Loop over them and prevent submission
     Array.prototype.slice.call(forms)
       .forEach(function (form) {
@@ -225,9 +230,8 @@ const storage = new Storage();
             event.preventDefault()
             event.stopPropagation()
           }
-  
+
           form.classList.add('was-validated')
         }, false)
       })
   })()
- 

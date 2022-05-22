@@ -4,33 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
-    <title>Lista książek</title>
+    <link rel="stylesheet" href="index.css">
+
+    <title>Book store</title>
 </head>
 <body>
     <h1>Bookstore</h1>
 
-    <div class="container m-4">
+    <!-- Nav -->
+    <nav class="navbar navbar-inverse bg-inverse fixed-top bg-faded">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span class="total-count"></span>)</button><button class="clear-cart btn btn-danger">Clear Cart</button></div>
+        </div>
+    </nav>
+
+
+    <!-- Main -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="images/learn_javascript.jpg" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Learning JavaScript</h4>
+                        <p class="card-text">Price: $0.5</p>
+                        <a href="#" data-name="Orange" data-price="0.5" class="add-to-cart btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="images/react.jpg" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Learning React</h4>
+                        <p class="card-text">Price: $1.22</p>
+                        <a href="#" data-name="Banana" data-price="1.22" class="add-to-cart btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="images/html_js_css.jpg" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">HTML, CSS & JavaScript</h4>
+                        <p class="card-text">Price: $5</p>
+                        <a href="#" data-name="Lemon" data-price="5" class="add-to-cart btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="images/eloquent_javascript.jpg" alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Eloquent JavaScript</h4>
+                        <p class="card-text">Price: $0.5</p>
+                        <a href="#" data-name="Orange" data-price="0.5" class="add-to-cart btn btn-primary">Add to cart</a>
+                        <button id="saveButton2" type="submit" class="btn btn-primary mb-3">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="show-cart table">
+
+                    </table>
+                    <div>Total price: $<span class="total-cart"></span></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Order now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="container m-5">
         <form action="" id="bookForm" class="needs-validation" novalidate>
             <div class="mb-3">
-                <label for="booktitle" class="form-label">Tytuł</label>
+                <label for="booktitle" class="form-label">Title</label>
                 <input type="text" required class="form-control" id="bookTitle"
-                    placeholder="Wpisz tytuł książki">
+                    placeholder="Enter the title of the book">
             </div>
             <div class="mb-3">
-                <label for="bookAuthor" class="form-label">Autor</label>
+                <label for="bookAuthor" class="form-label">Author</label>
                 <input type="text" required class="form-control" id="bookAuthor"
-                    placeholder="Wpisz autora">
+                    placeholder="Enter the author">
+            </div>
+            <div class="mb-3">
+                <label for="bookPrice" class="form-label">Price</label>
+                <input type="text" required class="form-control" id="bookPrice"
+                       placeholder="Enter the price">
             </div>
             <div>
-                <button id="saveButton" type="submit" class="btn btn-primary mb-3">Zapisz</button>
+                <button id="saveButton" type="submit" class="btn btn-primary mb-3">Save</button>
             </div>
+
         </form>
-        <table id="booksTable" class="table table-striped mt-3">
+        <table id="booksTable" class="table table-striped mt-10">
             <thead>
                 <tr>
-                    <td>Tytuł</td>
-                    <td>Autor</td>
-                    <td>Akcje</td>
+                    <td>Title</td>
+                    <td>Author</td>
+                    <td>Price</td>
+                    <td>Actions</td>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -38,5 +135,6 @@
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
     <script src="books.list.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
